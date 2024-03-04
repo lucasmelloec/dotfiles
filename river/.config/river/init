@@ -1,0 +1,100 @@
+#!/usr/bin/env sh
+
+terminal="alacritty"
+browser="firefox"
+filemanager="nemo"
+bar="killall -q waybar; waybar"
+launcher="fuzzel"
+mod="Mod4"
+
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export QT_QPA_PLATFORMTHEME=qt5ct
+export WLR_NO_HARDWARE_CURSORS=1
+export WLR_DRM_DEVICES=$HOME/.config/hypr/card
+
+riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+riverctl spawn "$bar"
+
+riverctl map normal $mod Return spawn "$terminal"
+riverctl map normal $mod C spawn "$browser"
+riverctl map normal $mod E spawn "$filemanager"
+riverctl map normal $mod Space spawn "$launcher"
+
+riverctl map normal $mod Q close
+riverctl map normal $mod+Shift Q spawn "pkill wlogout || wlogout -p layer-shell"
+riverctl map normal $mod+Control Q exit
+riverctl map normal $mod+Shift Return toggle-float
+riverctl map normal $mod+Shift L spawn "swaylock"
+riverctl map-switch normal lid close "swaylock -f"
+
+for i in $(seq 1 9); do
+  # Create 9 tags
+  tags=$((1 << ("$i" - 1)))
+  # Move focus to Tag
+  riverctl map normal $mod "$i" set-focused-tags $tags
+  # Move view(window) to Tag
+  riverctl map normal $mod+Shift "$i" set-view-tags $tags
+  # Show views(windows) from specified tag on current workspace
+  riverctl map normal $mod+Control "$i" toggle-focused-tags $tags
+  # Show focused view(window) on specified tag
+  riverctl map normal $mod+Shift+Control "$i" toggle-view-tags $tags
+done
+
+# Focus windows with $mod h/j/k/l
+riverctl map normal $mod H focus-view left
+riverctl map normal $mod J focus-view down
+riverctl map normal $mod K focus-view up
+riverctl map normal $mod L focus-view right
+
+# Various media key mapping examples for both normal and locked mode which do
+# not have a modifier
+for mode in normal locked; do
+  # riverctl map $mode None XF86AudioRaiseVolume spawn "pamixer -i 5 && sh -c 'dunstify -i /lol -t 300 -r 2593 \"Volume: \$(pamixer --get-volume)%\"'"
+  # riverctl map $mode None XF86AudioLowerVolume spawn "pamixer -d 5 && sh -c 'dunstify -i /lol -t 300 -r 2593 \"Volume: \$(pamixer --get-volume)%\"'"
+  # riverctl map $mode None XF86AudioMute spawn 'pamixer --toggle-mute && dunstify -i /lol -t 300 -r 2593 "Toggle Mute"'
+
+  riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
+  riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
+  riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
+  riverctl map $mode None XF86AudioNext spawn 'playerctl next'
+
+  riverctl map $mode None XF86MonBrightnessUp spawn "brightnessctl set +10% && sh -c 'dunstify -i /lol -t 300 -r 2593 \"Brightness: \$(brightnessctl -m | cut -d, -f4 | tr -d '%')%\"'"
+  riverctl map $mode None XF86MonBrightnessDown spawn "brightnessctl set 10%- && sh -c 'dunstify -i /lol -t 300 -r 2593 \"Brightness: \$(brightnessctl -m | cut -d, -f4 | tr -d '%')%\"'"
+done
+
+# Mouse binds
+riverctl map-pointer normal $mod BTN_LEFT move-view
+riverctl map-pointer normal $mod BTN_RIGHT resize-view
+riverctl map-pointer normal $mod BTN_MIDDLE toggle-float
+
+# Make all views with app-id "bar" and any title use client-side decorations
+riverctl rule-add ssd
+
+# Set background and border color
+riverctl background-color 0x002B36
+riverctl border-width 2
+riverctl border-color-focused 0xA98DB5
+riverctl border-color-unfocused 0xA5A5A5
+
+riverctl set-repeat 30 300
+riverctl default-attach-mode bottom
+riverctl focus-follows-cursor always
+riverctl hide-cursor timeout 60000 # 60 Seconds in milliseconds
+riverctl hide-cursor when-typing enabled
+riverctl set-cursor-warp on-focus-change
+
+# Touchpad Settings
+# Get device name from riverctl list-inputs
+riverctl input "pointer-1267-12632-ELAN050A:01_04F3:3158_Touchpad" tap enabled
+riverctl input "pointer-1267-12632-ELAN050A:01_04F3:3158_Touchpad" accel-profile flat
+riverctl input "pointer-1267-12632-ELAN050A:01_04F3:3158_Touchpad" natural-scroll enabled
+riverctl input "pointer-1267-12632-ELAN050A:01_04F3:3158_Touchpad" disable-while-typing enabled
+riverctl input "pointer-1267-12632-ELAN050A:01_04F3:3158_Touchpad" disable-while-trackpointing enabled
+
+riverctl default-layout rivertile
+riverctl keyboard-layout "br(abnt2)"
+
+
+rivertile -view-padding 3 -outer-padding 3 -main-ratio 0.5 -main-count 1 &
