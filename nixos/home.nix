@@ -1,5 +1,4 @@
-{ config, pkgs, inputs, ... }:
-
+{ config, pkgs, lib, inputs, ... }:
 {
   home.username = "chaps";
   home.homeDirectory = "/home/chaps";
@@ -74,6 +73,12 @@
       source = ../alacritty/.config/alacritty;
     };
   };
+
+  home.activation.install-tmux-tpm = lib.hm.dag.entryAfter [ "installPackages" ]''
+    if ! [ -d "${config.xdg.configHome}/tmux/plugins/tpm" ]; then
+      run ${pkgs.git}/bin/git clone $VERBOSE_ARG --depth=1 --single-branch "https://github.com/tmux-plugins/tpm" "${config.xdg.configHome}/tmux/plugins/tpm"
+    fi
+  '';
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
