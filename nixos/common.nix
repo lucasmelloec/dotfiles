@@ -46,7 +46,19 @@
   ];
 
   programs.zsh.enable = true;
+  # For zsh autocompletion to work
   environment.pathsToLink = [ "/share/zsh" ];
+  
+  environment.sessionVariables = {
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+  };
+  environment.variables = {
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
+  };
 
   programs.hyprland = {
     enable = true;
@@ -54,8 +66,22 @@
     xwayland.enable = true;
   };
 
+  # This is a hack for mason (that makes the whole system weird)
+  programs.nix-ld.enable = true;
+
   # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
+
+  # Limit the number of generations to keep
+  boot.loader.systemd-boot.configurationLimit = 5;
+
+  # Perform garbage collection weekly to maintain low disk usage
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 1w";
+  };
 
   # List services that you want to enable:
 

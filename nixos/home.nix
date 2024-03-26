@@ -8,11 +8,14 @@
   home.packages = with pkgs;[
     fuzzel
     git
-    nodejs_20
     nerdfonts
-    asdf-vm
     fzf
     tmux
+    gnumake
+    unzip
+    ripgrep
+    fd
+    eza
     # This is for AGS
     dart-sass
     # GUI
@@ -31,6 +34,14 @@
     dotDir = ".config/zsh";
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    shellAliases = {
+      ls = "exa --icons=auto";
+      update-system = "sudo nixos-rebuild switch --flake .";
+    };
+    # This is a hack for mason (that makes the whole system weird)
+    initExtra = ''
+      export NIX_LD=$(nix eval --impure --raw --expr 'let pkgs = import <nixpkgs> {}; NIX_LD = pkgs.lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker"; in NIX_LD')
+    '';
   };
 
   programs.ags = {
