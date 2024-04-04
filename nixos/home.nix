@@ -58,6 +58,7 @@
 
   xdg.configFile = {
     hypr = {
+      recursive = true;
       source = ../hypr/.config/hypr;
     };
     ags = {
