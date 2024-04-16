@@ -43,6 +43,7 @@
     tmux
     psmisc
     pciutils
+    zsh
   ];
 
   programs.zsh.enable = true;
@@ -80,7 +81,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 1w";
+    options = "--delete-older-than 14d";
   };
 
   # List services that you want to enable:

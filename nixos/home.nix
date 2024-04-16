@@ -16,6 +16,9 @@
     ripgrep
     fd
     eza
+    zsh
+    zoxide
+    starship
     # This is for AGS
     dart-sass
     # GUI
