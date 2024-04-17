@@ -63,13 +63,6 @@
 		      swap.swapfile.size = "22G";
 		    };
 		  };
-		  postMountHook = ''
-		    chattr +C /var/cache
-		    chattr +C /var/lib/libvirt
-		    chattr +C /var/log
-                    chattr +C /var/lib
-		    chattr +C /.swapvol
-		  '';
 		};
 	      };
 	    };
