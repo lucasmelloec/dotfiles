@@ -27,6 +27,7 @@
     floorp
     wlogout
     _1password-gui
+    telegram-desktop
   ];
 
   programs.zoxide.enable = true;

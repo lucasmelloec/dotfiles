@@ -3,26 +3,19 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
 
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    ags.url = "github:Aylur/ags";
-    ags.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    ags = { url = "github:Aylur/ags"; inputs.nixpkgs.follows = "nixpkgs"; };
+    hyprland = { url = "github:hyprwm/Hyprland"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
 
-  outputs = { self, nixpkgs, disko, home-manager, ...}@inputs:
+  outputs = inputs:
   let
     commonModules = [
-      disko.nixosModules.disko
-      home-manager.nixosModules.home-manager
+      inputs.disko.nixosModules.disko
+      inputs.home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
@@ -31,7 +24,7 @@
       }
     ];
     in {
-    nixosConfigurations.darkwings = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.darkwings = inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = commonModules ++
