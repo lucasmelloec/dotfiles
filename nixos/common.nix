@@ -44,6 +44,7 @@
     psmisc
     pciutils
     zsh
+    gcc
   ];
 
   programs.zsh.enable = true;
