@@ -45,6 +45,7 @@
       ];
       runScript = "nvim";
     })
+    wl-clipboard
   ];
 
   programs.zsh.enable = true;
@@ -146,6 +147,7 @@
         "browser.newtabpage.activity-stream.showSponsored" = falseAndLocked;
         "browser.newtabpage.activity-stream.system.showSponsored" = falseAndLocked;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = falseAndLocked;
+        "browser.translations.automaticallyPopup" = falseAndLocked;
       };
     };
   };
