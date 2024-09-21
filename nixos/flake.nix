@@ -29,9 +29,7 @@
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-classic;
       nixosConfigurations.darkwings = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = commonModules ++ [
-          ./machines/darkwings/configuration.nix
-        ];
+        modules = commonModules ++ [ ./machines/darkwings/configuration.nix ];
       };
     };
 }
