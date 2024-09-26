@@ -175,6 +175,18 @@ return {
         },
       },
       textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ['af'] = { query = '@function.outer', desc = 'Select outer part of a function region' },
+            ['if'] = { query = '@function.inner', desc = 'Select inner part of a function region' },
+            ['am'] = { query = '@class.outer', desc = 'Select outer part of a class region' },
+            ['im'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
+            ['ac'] = { query = '@parameter.outer', desc = 'Select outer part of a parameter region' },
+            ['ic'] = { query = '@parameter.inner', desc = 'Select inner part of a parameter region' },
+          },
+        },
         move = {
           enable = true,
           goto_next_start = { [']f'] = '@function.outer', [']m'] = '@class.outer', [']a'] = '@parameter.inner' },

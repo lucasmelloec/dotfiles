@@ -270,7 +270,9 @@ return {
       end
 
       require('mini.files').setup()
-      vim.keymap.set('n', '-', '<cmd>lua MiniFiles.open()<CR>', { desc = 'Open Explorer Tree' })
+      vim.keymap.set('n', '-', function()
+        require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
+      end, { desc = 'Open Explorer Tree' })
 
       require('mini.bufremove').setup()
       vim.keymap.set('n', '<leader>bd', function()
