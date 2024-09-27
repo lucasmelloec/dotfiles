@@ -285,7 +285,7 @@ return {
   -- Git for the winners
   {
     'tpope/vim-fugitive',
-    cmd = { 'Git', 'Gedit', 'Gsplit', 'Gdiffsplit', 'Gvdiffsplit', 'Gread' },
+    cmd = { 'Git', 'Gedit', 'Gsplit', 'Gdiffsplit', 'Gvdiffsplit', 'Gread', 'G' },
   },
 
   -- Cool things for ruby and case coercion

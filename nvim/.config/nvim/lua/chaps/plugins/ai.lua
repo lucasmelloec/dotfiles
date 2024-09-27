@@ -1,3 +1,7 @@
+if vim.g.chaps_options.ai_assist.enabled == false then
+  return {}
+end
+
 return {
   {
     'zbirenbaum/copilot.lua',

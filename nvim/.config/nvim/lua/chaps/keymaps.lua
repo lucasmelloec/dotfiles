@@ -33,7 +33,6 @@ vim.keymap.set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move up' })
 vim.keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
 
--- TODO: Delete this inside bufferline plugin settings and reset them
 vim.keymap.set('n', '[b', '<cmd>bprevious<cr>', { desc = 'Prev buffer' })
 vim.keymap.set('n', ']b', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 

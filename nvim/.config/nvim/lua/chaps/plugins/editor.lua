@@ -4,8 +4,7 @@ return {
     event = 'LazyFile',
   },
 
-  -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  {
     'lewis6991/gitsigns.nvim',
     event = { 'LazyFile' },
     opts = {
@@ -21,7 +20,7 @@ return {
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
+    event = 'VeryLazy',
     opts_extend = { 'spec' },
     opts = {
       plugins = { spelling = true },
@@ -46,13 +45,6 @@ return {
     },
   },
 
-  -- NOTE: Plugins can specify dependencies.
-  --
-  -- The dependencies are proper plugin specifications as well - anything
-  -- you do for a plugin at the top level, you can do for a dependency.
-  --
-  -- Use the `dependencies` key to specify the dependencies of a particular plugin
-
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
@@ -66,9 +58,7 @@ return {
         -- This is only run then, not every time Neovim starts up.
         build = 'make',
 
-        -- `cond` is a condition used to determine whether this plugin should be
-        -- installed and loaded.
-        cond = function()
+        enabled = function()
           return vim.fn.executable('make') == 1
         end,
       },
@@ -80,77 +70,98 @@ return {
       -- Search through luasnip snippets
       { 'benfowler/telescope-luasnip.nvim' },
     },
-    keys = function()
-      local builtin = require('telescope.builtin')
-      return {
-        { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
-        { '<leader>sk', builtin.keymaps, desc = 'Search Keymaps' },
-        { '<leader><leader>', builtin.find_files, desc = 'Search Files' },
-        { '<leader>sw', builtin.grep_string, desc = 'Search current Word' },
-        { '<leader>/', builtin.live_grep, desc = 'Search by Grep' },
-        { '<leader>sd', builtin.diagnostics, desc = 'Search Diagnostics' },
-        { '<leader>sp', builtin.resume, desc = 'Search Resume' },
-        { '<leader>s.', builtin.oldfiles, desc = 'Search Recent Files ("." for repeat)' },
-        { '<leader>sb', builtin.buffers, desc = 'Find existing buffers' },
-        { '<leader>sn', '<cmd>telescope luasnip<cr>', desc = 'Search Snippets' },
-        -- Slightly advanced example of overriding default behavior and theme
-        {
-          '<leader>sg',
-          function()
-            -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-              winblend = 10,
-              previewer = false,
-            })
-          end,
-          desc = 'Search in current buffer',
-        },
-        -- It's also possible to pass additional configuration options.
-        --  See `:help telescope.builtin.live_grep()` for information about particular keys
-        {
-          '<leader>s/',
-          function()
-            builtin.live_grep {
-              grep_open_files = true,
-              prompt_title = 'Live Grep in Open Files',
-            }
-          end,
-          desc = 'Search in Open Files',
-        },
-      }
-    end,
+    keys = {
+      {
+        '<leader>sh',
+        function()
+          require('telescope.builtin').help_tags()
+        end,
+        desc = 'Search Help',
+      },
+      {
+        '<leader>sk',
+        function()
+          require('telescope.builtin').keymaps()
+        end,
+        desc = 'Search Keymaps',
+      },
+      {
+        '<leader><leader>',
+        function()
+          require('telescope.builtin').find_files()
+        end,
+        desc = 'Search Files',
+      },
+      {
+        '<leader>sw',
+        function()
+          require('telescope.builtin').grep_string()
+        end,
+        desc = 'Search current Word',
+      },
+      {
+        '<leader>/',
+        function()
+          require('telescope.builtin').live_grep()
+        end,
+        desc = 'Search by Grep',
+      },
+      {
+        '<leader>sd',
+        function()
+          require('telescope.builtin').diagnostics()
+        end,
+        desc = 'Search Diagnostics',
+      },
+      {
+        '<leader>sp',
+        function()
+          require('telescope.builtin').resume()
+        end,
+        desc = 'Search Resume',
+      },
+      {
+        '<leader>s.',
+        function()
+          require('telescope.builtin').oldfiles()
+        end,
+        desc = 'Search Recent Files ("." for repeat)',
+      },
+      {
+        '<leader>sb',
+        function()
+          require('telescope.builtin').buffers()
+        end,
+        desc = 'Find existing buffers',
+      },
+      { '<leader>sn', '<cmd>telescope luasnip<cr>', desc = 'Search Snippets' },
+      -- Slightly advanced example of overriding default behavior and theme
+      {
+        '<leader>sg',
+        function()
+          -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+          require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
+          })
+        end,
+        desc = 'Search in current buffer',
+      },
+      -- It's also possible to pass additional configuration options.
+      --  See `:help telescope.require('telescope.builtin').live_grep()` for information about particular keys
+      {
+        '<leader>s/',
+        function()
+          require('telescope.builtin').live_grep {
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          }
+        end,
+        desc = 'Search in Open Files',
+      },
+    },
     config = function()
-      -- Telescope is a fuzzy finder that comes with a lot of different things that
-      -- it can fuzzy find! It's more than just a "file finder", it can search
-      -- many different aspects of Neovim, your workspace, LSP, and more!
-      --
-      -- The easiest way to use Telescope, is to start by doing something like:
-      --  :Telescope help_tags
-      --
-      -- After running this command, a window will open up and you're able to
-      -- type in the prompt window. You'll see a list of `help_tags` options and
-      -- a corresponding preview of the help.
-      --
-      -- Two important keymaps to use while in Telescope are:
-      --  - Insert mode: <c-/>
-      --  - Normal mode: ?
-      --
-      -- This opens a window that shows you all of the keymaps for the current
-      -- Telescope picker. This is really useful to discover what Telescope can
-      -- do as well as how to actually do it!
-
-      -- [[ Configure Telescope ]]
-      -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
-        -- You can put your default mappings / updates / etc. in here
-        --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -165,11 +176,7 @@ return {
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  {
     'catppuccin/nvim',
     lazy = true,
     name = 'catppuccin',
@@ -200,9 +207,6 @@ return {
       },
     },
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme('catppuccin-macchiato')
 
       -- You can configure highlights by doing something like:
@@ -212,7 +216,7 @@ return {
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
-    event = 'VimEnter',
+    event = 'VeryLazy',
     opts = {
       ai = {
         n_lines = 500,
@@ -239,26 +243,11 @@ return {
       end
     end,
     config = function(_, opts)
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [']quote
-      --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup(opts.ai)
 
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup(opts.surround)
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
       local statusline = require('mini.statusline')
-      -- set use_icons to true if you have a Nerd Font
       statusline.setup(opts.statusline)
 
       -- You can configure sections in the statusline by overriding their
@@ -289,7 +278,6 @@ return {
   -- tmux navigation and register sync
   {
     'aserowy/tmux.nvim',
-    event = { 'VimEnter' },
     keys = {
       { '<C-h>' },
       { '<C-j>' },
