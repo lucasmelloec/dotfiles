@@ -4,8 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
-    ../../common.nix
-    ../../modes/laptop.nix
+    ../../configuration.nix
+    ../../roles/laptop.nix
   ];
 
   networking.hostName = "darkwings";

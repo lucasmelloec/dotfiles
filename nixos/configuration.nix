@@ -39,7 +39,13 @@
     waybar
     (pkgs.buildFHSEnv {
       name = "nvim";
-      targetPkgs = pkgs: with pkgs; [ neovim nodejs_22 lua-language-server stylua ];
+      targetPkgs = pkgs:
+        with pkgs; [
+          neovim
+          nodejs_22
+          lua-language-server
+          stylua
+        ];
       runScript = "nvim";
     })
     wl-clipboard
@@ -48,7 +54,8 @@
     discord
   ];
 
-  fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  fonts.packages = builtins.filter lib.attrsets.isDerivation
+    (builtins.attrValues pkgs.nerd-fonts);
 
   programs.zsh.enable = true;
   # For zsh autocompletion to work
