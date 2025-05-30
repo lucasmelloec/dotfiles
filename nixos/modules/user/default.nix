@@ -1,1 +1,1 @@
-{ imports = [ ./development.nix ]; }
+{ imports = [ ./options.nix ./development.nix ]; }

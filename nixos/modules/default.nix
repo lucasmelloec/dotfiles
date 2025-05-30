@@ -1,10 +1,11 @@
 {
   imports = [
+    ./options.nix
     ./neovim.nix
-    ./river.nix
     ./fonts.nix
-    ./zsh.nix
-    ./firefox.nix
-    ./pipewire.nix
+    ./audio.nix
+    ./browser
+    ./desktop
+    ./shell
   ];
 }

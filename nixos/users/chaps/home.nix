@@ -14,6 +14,9 @@ in {
     discord
   ];
 
+  # User Options
+  user = { development.enable = true; };
+
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -39,16 +42,21 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink
         "${homeDirectory}/dotfiles/fuzzel/.config/fuzzel";
     };
-    git = { source = config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/dotfiles/git/.config/git"; };
+    git = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/git/.config/git";
+    };
     starship = {
-      source = config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/dotfiles/starship/.config/starship";
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/starship/.config/starship";
     };
     alacritty = {
-      source =
-        config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/dotfiles/alacritty/.config/alacritty";
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/alacritty/.config/alacritty";
     };
     nvim = {
-      source = config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/dotfiles/nvim/.config/nvim";
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/nvim/.config/nvim";
     };
   };
 

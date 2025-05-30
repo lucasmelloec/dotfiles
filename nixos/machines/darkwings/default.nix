@@ -8,6 +8,12 @@
     ../../roles/laptop.nix
   ];
 
+  # Options
+  audio.enable = true;
+  browsers = [ "firefox" ];
+  desktopEnvironment = "river";
+  defaultShell = "zsh";
+
   networking.hostName = "darkwings";
 
   # AMD GPU
