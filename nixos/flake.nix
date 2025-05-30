@@ -35,11 +35,12 @@
     let system = "x86_64-linux";
     in {
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-classic;
+
       nixosConfigurations = {
         darkwings = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
-          modules = [ ./machines/darkwings ./configuration.nix ./users/chaps ];
+          modules = [ ./machines/darkwings ./users/chaps ];
         };
       };
     };

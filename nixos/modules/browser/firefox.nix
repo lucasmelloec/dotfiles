@@ -1,4 +1,7 @@
-{
+{ lib, config, ... }:
+
+let inherit (lib.modules) mkIf;
+in {
   programs.firefox = let
     trueAndLocked = {
       Value = true;
@@ -8,7 +11,7 @@
       Value = false;
       Status = "locked";
     };
-  in {
+  in mkIf (builtins.elem "firefox" config.browsers) {
     enable = true;
     languagePacks = [ "en-US" "pt-BR" ];
     policies = {
