@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ../../configuration.nix
-    ../../roles/laptop.nix
+    ../../roles/desktop.nix
   ];
 
   # Options
@@ -18,5 +18,5 @@
   gpu.type = "nv-amd";
   gpu.nvidia.enable = false;
 
-  networking.hostName = "darkwings";
+  networking.hostName = "lightwings";
 }

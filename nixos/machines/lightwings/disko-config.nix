@@ -1,8 +1,8 @@
 {
   disko.devices = {
     disk = {
-      nvme0n1 = {
-        device = "/dev/by-diskseq/1";
+      one = {
+        device = "/dev/by-id/ata-ST1000DM010-2EP102_ZN1WPC4W";
         type = "disk";
         content = {
           type = "gpt";
@@ -65,7 +65,7 @@
                     "@swap" = {
                       mountpoint = "/.swapvol";
                       mountOptions = [ "noatime" "discard=async" ];
-                      swap.swapfile.size = "22G";
+                      swap.swapfile.size = "38G";
                     };
                   };
                 };
