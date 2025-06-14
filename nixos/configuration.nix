@@ -18,14 +18,14 @@
   environment.systemPackages = with pkgs; [
     wget
     git
-    tmux
     psmisc
     pciutils
-    gcc
-    # Nix Language Server
-    nil
-    discord
-    jujutsu
+    nil # Nix Language Server
+    unzip
+    fzf
+    ripgrep
+    fd
+    eza
   ];
 
   environment.sessionVariables = {
