@@ -1,14 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let
-  inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
+let inherit (lib.modules) mkIf;
 in {
-  options = {
-    wayland.enable = mkEnableOption "Wheather to use wayland or not";
-  };
-
-  config = mkIf config.wayland.enable {
+  config = mkIf config.custom.wayland.enable {
     environment.systemPackages = with pkgs; [ wl-clipboard fuzzel ];
 
     # Enable SDDM

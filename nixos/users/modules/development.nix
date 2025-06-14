@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf config.user.development.enable {
-    home.packages = with pkgs; [ tmux gnumake jujutsu gcc nil ];
+    home.packages = with pkgs; [ tmux gnumake jujutsu gcc nil lazygit ];
 
     programs.direnv = {
       enable = true;

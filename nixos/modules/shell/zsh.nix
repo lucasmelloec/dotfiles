@@ -2,7 +2,7 @@
 
 let inherit (lib.modules) mkIf;
 in {
-  config = mkIf (config.defaultShell == "zsh") {
+  config = mkIf (config.custom.defaultShell == "zsh") {
     programs.zsh.enable = true;
 
     # For zsh autocompletion to work

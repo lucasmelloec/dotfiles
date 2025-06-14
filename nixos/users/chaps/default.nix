@@ -11,5 +11,5 @@
 
   nix.settings.trusted-users = [ "chaps" ];
 
-  homeManager.users = [ "chaps" ];
+  custom.homeManager.users = [ "chaps" ];
 }

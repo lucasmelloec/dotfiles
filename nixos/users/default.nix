@@ -6,7 +6,7 @@ let
   inherit (lib.types) str listOf;
   inherit (lib.attrsets) genAttrs;
 in {
-  options = {
+  options.custom = {
     homeManager = {
       enable = mkEnableOption "Weather to use home-manager";
       users = mkOption {
@@ -18,10 +18,11 @@ in {
   };
 
   config = {
-    home-manager = mkIf config.homeManager.enable {
+    home-manager = mkIf config.custom.homeManager.enable {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users = genAttrs config.homeManager.users (name: ./${name} + /home.nix);
+      users =
+        genAttrs config.custom.homeManager.users (name: ./${name} + /home.nix);
       extraSpecialArgs = { inherit inputs nixpkgs; };
     };
   };

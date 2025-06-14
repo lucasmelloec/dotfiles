@@ -5,6 +5,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "max";
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
@@ -33,7 +34,7 @@
   nix.settings.auto-optimise-store = true;
 
   # Limit the number of generations to keep
-  boot.loader.systemd-boot.configurationLimit = 5;
+  boot.loader.systemd-boot.configurationLimit = 2;
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {

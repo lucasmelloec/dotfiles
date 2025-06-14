@@ -4,9 +4,9 @@ let
   inherit (lib.modules) mkIf;
   usesNvidia = [ "nvidia" "nv-amd" ];
 in {
-  config = mkIf (builtins.elem config.gpu.type usesNvidia) {
+  config = mkIf (builtins.elem config.custom.gpu usesNvidia) {
     # Disable nvidia
-    boot = mkIf (!config.gpu.nvidia.enable) {
+    boot = mkIf config.custom.nvidia.forceDisable {
       extraModprobeConfig = ''
         blacklist nouveau
         options nouveau modeset=0
