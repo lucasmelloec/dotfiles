@@ -12,6 +12,12 @@ in {
     };
 
     nvidia.forceDisable = mkEnableOption "Weather to disable the nvidia card";
+
+    amd.card = mkOption {
+      type = nullOr (path);
+      default = null;
+      description = "Path to the amd video card";
+    };
   };
 
   imports = [ ./amd.nix ./nvidia.nix ];

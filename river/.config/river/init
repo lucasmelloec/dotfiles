@@ -7,12 +7,6 @@ bar="killall -q waybar; waybar"
 launcher="fuzzel"
 mod="Mod4"
 
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
-export QT_QPA_PLATFORMTHEME=qt5ct
-export WLR_NO_HARDWARE_CURSORS=1
-export WLR_DRM_DEVICES=$HOME/.config/hypr/card
-
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 riverctl spawn "$bar"

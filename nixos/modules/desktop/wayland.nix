@@ -8,7 +8,14 @@ in {
     # Enable SDDM
     services.displayManager.sddm = {
       enable = true;
-      wayland.enable = true;
+      wayland = {
+        enable = true;
+        compositor = "kwin";
+      };
+    };
+
+    environment.sessionVariables = {
+      KWIN_DRM_DEVICES = config.custom.amd.card;
     };
   };
 }
