@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ lib, pkgs, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -15,19 +15,6 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.chaps = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "kvm" ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [ ];
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
     git
@@ -52,6 +39,7 @@
     # Nix Language Server
     nil
     discord
+    jujutsu
   ];
 
   fonts.packages = builtins.filter lib.attrsets.isDerivation
@@ -210,14 +198,6 @@
     pulse.enable = true;
     jack.enable = true;
   };
-
-  programs.auto-cpufreq.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
