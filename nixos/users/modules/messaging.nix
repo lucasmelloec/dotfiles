@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, osConfig, ... }:
 
 let
   inherit (lib.modules) mkIf;
@@ -8,7 +8,7 @@ in {
     messaging.enable = mkEnableOption "Weather to enable messaging apps";
   };
 
-  config = mkIf (config.user.gui.enable && config.user.messaging.enable) {
+  config = mkIf (osConfig.custom.gui.enable && config.user.messaging.enable) {
     home.packages = with pkgs; [ _1password-gui telegram-desktop discord ];
   };
 }
