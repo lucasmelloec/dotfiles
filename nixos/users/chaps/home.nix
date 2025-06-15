@@ -65,6 +65,9 @@ in {
       source =
         config.lib.file.mkOutOfStoreSymlink "${dotfiles}/waybar/.config/waybar";
     };
+    jj = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/jj/.config/jj";
+    };
   };
 
   home.activation.install-tmux-tpm =
