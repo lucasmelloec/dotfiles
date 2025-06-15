@@ -27,6 +27,8 @@
     ripgrep
     fd
     eza
+    comma
+    nh
   ];
 
   # Nix settings
