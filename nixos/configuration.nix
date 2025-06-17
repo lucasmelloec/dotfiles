@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -27,6 +27,8 @@
     sbctl
   ];
 
+  programs.nix-index-database.comma.enable = true;
+
   # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
@@ -42,7 +44,8 @@
   };
 
   # Modules
-  imports = [ ./modules ./users ];
+  imports =
+    [ ./modules ./users inputs.nix-index-database.nixosModules.nix-index ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
