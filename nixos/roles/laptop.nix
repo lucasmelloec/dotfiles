@@ -1,8 +1,10 @@
 { inputs, ... }:
 
 {
-  imports = [ inputs.auto-cpufreq.nixosModules.default ];
+  imports = [ ];
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-  programs.auto-cpufreq.enable = true;
+  powerManagement.enable = true;
+  services.tlp.enable = true;
+  services.auto-cpufreq.enable = true;
 }
