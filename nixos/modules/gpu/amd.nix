@@ -6,7 +6,7 @@ let
 in {
   config = mkIf (builtins.elem config.custom.gpu usesAmd) {
     boot.initrd.kernelModules = [ "amdgpu" ];
-    services.xserver.videoDrivers = mkForce [ "amdgpu" ];
+    services.xserver.videoDrivers = [ "amdgpu" ];
     hardware.graphics.extraPackages = with pkgs; [ amdvlk ];
   };
 }

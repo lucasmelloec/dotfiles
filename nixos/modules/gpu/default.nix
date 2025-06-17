@@ -2,7 +2,7 @@
 
 let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) nullOr enum path;
+  inherit (lib.types) nullOr enum path bool str;
 in {
   options.custom = {
     gpu = mkOption {
@@ -11,12 +11,32 @@ in {
       description = "The GPU configuration";
     };
 
-    nvidia.forceDisable = mkEnableOption "Weather to disable the nvidia card";
+    nvidia = {
+      specialisation = mkEnableOption
+        "Weather to create a split boot entry for nvidia-enabled";
+      open = mkOption {
+        type = bool;
+        default = true;
+        description = "Weather to use new open source drivers";
+      };
+      busId = mkOption {
+        type = str;
+        default = "";
+        description = "Bus ID to be used with Optimus Prime";
+      };
+    };
 
-    amd.card = mkOption {
-      type = nullOr (path);
-      default = null;
-      description = "Path to the amd video card";
+    amd = {
+      card = mkOption {
+        type = nullOr (path);
+        default = null;
+        description = "Path to the amd video card";
+      };
+      busId = mkOption {
+        type = str;
+        default = "";
+        description = "Bus ID to be used with Optimus Prime";
+      };
     };
   };
 

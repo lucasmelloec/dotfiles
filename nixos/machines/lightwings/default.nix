@@ -1,7 +1,6 @@
-{ inputs, lib, config, ... }:
+{ inputs, ... }:
 
-let inherit (lib.modules) mkIf;
-in {
+{
   imports = with inputs; [
     disko.nixosModules.disko
     ./hardware-configuration.nix
@@ -17,12 +16,13 @@ in {
   custom.defaultShell = "zsh";
   custom.homeManager.enable = true;
   custom.gpu = "nv-amd";
-  custom.nvidia.forceDisable = true;
   custom.amd.card = "/dev/dri/card1";
+  custom.amd.busId = "PCI:11:0:0";
+  custom.nvidia.busId = "PCI:1:0:0";
 
   networking.hostName = "lightwings";
 
-  hardware.display = mkIf config.custom.nvidia.forceDisable {
+  hardware.display = {
     outputs."HDMI-A-1".mode = "e";
     outputs."Unknown-1".mode = "d";
   };
