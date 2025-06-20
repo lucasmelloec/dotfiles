@@ -35,23 +35,28 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs:
-    let system = "x86_64-linux";
+  outputs = { nixpkgs, disko, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      mkNixosConfiguration = name: additionalModules:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            disko.nixosModules.disko
+            ./machines/${name}
+            ./machines/${name}/hardware-configuration.nix
+            ./machines/${name}/disk-config.nix
+            ./configuration.nix
+          ] ++ additionalModules;
+        };
     in {
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-classic;
 
       nixosConfigurations = {
-        darkwings = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [ ./machines/darkwings ./users/chaps ];
-        };
+        darkwings = mkNixosConfiguration "darkwings" [ ./users/chaps ];
 
-        lightwings = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [ ./machines/lightwings ./users/chaps ];
-        };
+        lightwings = mkNixosConfiguration "lightwings" [ ./users/chaps ];
       };
     };
 }

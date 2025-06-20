@@ -1,13 +1,7 @@
 { inputs, ... }:
 
 {
-  imports = with inputs; [
-    disko.nixosModules.disko
-    ./hardware-configuration.nix
-    ./disk-config.nix
-    ../../configuration.nix
-    ../../roles/desktop.nix
-  ];
+  imports = with inputs; [ ../../roles/desktop.nix ];
 
   # Options
   custom.audio.enable = true;
