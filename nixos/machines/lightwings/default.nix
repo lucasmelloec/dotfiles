@@ -19,6 +19,7 @@
   custom.amd.card = "/dev/dri/card1";
   custom.amd.busId = "PCI:11:0:0";
   custom.nvidia.busId = "PCI:1:0:0";
+  custom.tpm.enable = true;
 
   networking.hostName = "lightwings";
 
