@@ -57,6 +57,8 @@
         darkwings = mkNixosConfiguration "darkwings" [ ./users/chaps ];
 
         lightwings = mkNixosConfiguration "lightwings" [ ./users/chaps ];
+
+        killua = mkNixosConfiguration "killua" [ ./users/chaps ];
       };
     };
 }

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -34,7 +34,7 @@
   nix.settings.auto-optimise-store = true;
 
   # Limit the number of generations to keep
-  boot.loader.systemd-boot.configurationLimit = 2;
+  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 2;
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {
