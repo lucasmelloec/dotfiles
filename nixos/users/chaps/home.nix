@@ -1,30 +1,18 @@
-{ inputs, config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+
+let homeDirectory = "/home/chaps";
+in {
+  imports = [ ../../modules/user ];
   home.username = "chaps";
-  home.homeDirectory = "/home/chaps";
+  home.homeDirectory = homeDirectory;
 
   home.packages = with pkgs; [
-    fuzzel
-    git
-    fzf
-    tmux
-    gnumake
-    unzip
-    ripgrep
-    fd
-    eza
-    zsh
-    zoxide
-    starship
     # GUI
     alacritty
-    fuzzel
-    wlogout
     _1password-gui
     telegram-desktop
+    discord
   ];
-
-  programs.zoxide.enable = true;
-  programs.starship.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -37,28 +25,35 @@
     };
   };
 
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
+  programs.starship.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   xdg.configFile = {
-    zsh = { source = ../../../zsh/.config/zsh; };
     tmux = {
-      recursive = true;
-      source = ../../../tmux/.config/tmux;
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/tmux/.config/tmux";
     };
-    fuzzel = { source = ../../../fuzzel/.config/fuzzel; };
-    git = { source = ../../../git/.config/git; };
-    starship = { source = ../../../starship/.config/starship; };
-    alacritty = { source = ../../../alacritty/.config/alacritty; };
+    fuzzel = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/fuzzel/.config/fuzzel";
+    };
+    git = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/git/.config/git";
+    };
+    starship = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/starship/.config/starship";
+    };
+    alacritty = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/alacritty/.config/alacritty";
+    };
     nvim = {
-      recursive = true;
-      source = ../../../nvim/.config/nvim;
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${homeDirectory}/dotfiles/nvim/.config/nvim";
     };
   };
 

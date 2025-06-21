@@ -1,7 +1,12 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ waybar wl-clipboard ];
+  environment.systemPackages = with pkgs; [
+    waybar
+    wl-clipboard
+    fuzzel
+    wlogout
+  ];
 
   programs.river = { enable = true; };
 
