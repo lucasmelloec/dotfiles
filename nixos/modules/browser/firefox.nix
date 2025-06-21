@@ -11,7 +11,7 @@ in {
       Value = false;
       Status = "locked";
     };
-  in mkIf (builtins.elem "firefox" config.browsers) {
+  in mkIf (builtins.elem "firefox" config.custom.browsers) {
     enable = true;
     languagePacks = [ "en-US" "pt-BR" ];
     policies = {

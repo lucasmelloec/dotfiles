@@ -1,4 +1,4 @@
-{ pkgs, lib, config, osConfig, ... }:
+{ pkgs, lib, osConfig, ... }:
 
 let
   inherit (lib.modules) mkIf;
@@ -8,7 +8,7 @@ in {
     gui.enable = mkEnableOption "Weather to enable GUI applications";
   };
 
-  config = mkIf (osConfig.desktopEnvironment != null) {
+  config = mkIf (osConfig.custom.desktopEnvironment != null) {
     user.gui.enable = true;
 
     home.packages = with pkgs; [ alacritty ];

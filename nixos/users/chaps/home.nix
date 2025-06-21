@@ -57,10 +57,18 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink
         "${homeDirectory}/dotfiles/nvim/.config/nvim";
     };
+    river = {
+      source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/river/.config/river";
+    };
+    waybar = {
+      source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/waybar/.config/waybar";
+    };
   };
 
   home.activation.install-tmux-tpm =
-    lib.hm.dag.entryAfter [ "installPackages" ] ''
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if ! [ -d "${config.xdg.configHome}/tmux/plugins/tpm" ]; then
         run ${pkgs.git}/bin/git clone $VERBOSE_ARG --depth=1 --single-branch "https://github.com/tmux-plugins/tpm" "${config.xdg.configHome}/tmux/plugins/tpm"
       fi

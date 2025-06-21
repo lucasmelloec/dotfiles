@@ -4,11 +4,11 @@ let
   inherit (lib.options) mkEnableOption;
   inherit (lib.modules) mkIf;
 in {
-  options = {
+  options.custom = {
     audio.enable = mkEnableOption "Weather to enable audio related services";
   };
 
-  config = mkIf config.audio.enable {
+  config = mkIf config.custom.audio.enable {
     services.pipewire = {
       enable = true;
       alsa.enable = true;

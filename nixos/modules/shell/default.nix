@@ -4,7 +4,7 @@ let
   inherit (lib.options) mkOption;
   inherit (lib.types) enum;
 in {
-  options = {
+  options.custom = {
     defaultShell = mkOption {
       type = enum [ "bash" "zsh" ];
       default = "bash";

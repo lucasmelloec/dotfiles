@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ inputs, ... }:
 
 {
   imports = with inputs; [
@@ -10,13 +10,13 @@
   ];
 
   # Options
-  audio.enable = true;
-  browsers = [ "firefox" ];
-  desktopEnvironment = "river";
-  defaultShell = "zsh";
-  homeManager.enable = true;
-  gpu.type = "nv-amd";
-  gpu.nvidia.enable = false;
+  custom.audio.enable = true;
+  custom.browsers = [ "firefox" ];
+  custom.desktopEnvironment = "river";
+  custom.defaultShell = "zsh";
+  custom.homeManager.enable = true;
+  custom.gpu = "nv-amd";
+  custom.nvidia.forceDisable = true;
 
   networking.hostName = "darkwings";
 }

@@ -4,7 +4,7 @@ let
   inherit (lib.options) mkOption;
   inherit (lib.types) enum listOf;
 in {
-  options = {
+  options.custom = {
     browsers = mkOption {
       type = listOf (enum [ "firefox" ]);
       default = [ ];
