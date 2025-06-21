@@ -14,5 +14,12 @@ in {
     wayland.enable = mkEnableOption "Wheather to use wayland or not";
   };
 
+  config = mkIf (config.custom.desktopEnvironment != null) {
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+  };
+
   imports = [ ./wayland.nix ./river.nix ];
 }

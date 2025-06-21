@@ -17,6 +17,7 @@
   custom.homeManager.enable = true;
   custom.gpu = "nv-amd";
   custom.nvidia.forceDisable = true;
+  custom.amd.card = "/dev/dri/card1";
 
   networking.hostName = "darkwings";
 }
