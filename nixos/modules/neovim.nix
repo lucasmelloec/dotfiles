@@ -14,4 +14,10 @@
       runScript = "nvim";
     })
   ];
+
+  environment.variables = {
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
+  };
+
 }

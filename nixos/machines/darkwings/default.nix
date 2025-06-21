@@ -5,20 +5,18 @@
     disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
+    ../../configuration.nix
     ../../roles/laptop.nix
   ];
 
+  # Options
+  audio.enable = true;
+  browsers = [ "firefox" ];
+  desktopEnvironment = "river";
+  defaultShell = "zsh";
+  homeManager.enable = true;
+  gpu.type = "nv-amd";
+  gpu.nvidia.enable = false;
+
   networking.hostName = "darkwings";
-
-  # AMD GPU
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = lib.mkForce [ "amdgpu" ];
-
-  # Disable nvidia
-  boot.extraModprobeConfig = ''
-    blacklist nouveau
-    options nouveau modeset=0
-  '';
-  boot.blacklistedKernelModules =
-    [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
 }

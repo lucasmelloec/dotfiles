@@ -1,18 +1,20 @@
 { config, pkgs, lib, ... }:
 
-let homeDirectory = "/home/chaps";
+let
+  homeDirectory = "/home/chaps";
+  dotfiles = "${homeDirectory}/dotfiles";
 in {
-  imports = [ ../../modules/user ];
+  imports = [ ../modules ];
   home.username = "chaps";
   home.homeDirectory = homeDirectory;
 
-  home.packages = with pkgs; [
-    # GUI
-    alacritty
-    _1password-gui
-    telegram-desktop
-    discord
-  ];
+  home.packages = [ ];
+
+  # User Options
+  user = {
+    development.enable = true;
+    messaging.enable = true;
+  };
 
   programs.zsh = {
     enable = true;
@@ -32,16 +34,16 @@ in {
 
   xdg.configFile = {
     tmux = {
-      source = config.lib.file.mkOutOfStoreSymlink
-        "${homeDirectory}/dotfiles/tmux/.config/tmux";
+      source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/tmux/.config/tmux";
     };
     fuzzel = {
-      source = config.lib.file.mkOutOfStoreSymlink
-        "${homeDirectory}/dotfiles/fuzzel/.config/fuzzel";
+      source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/fuzzel/.config/fuzzel";
     };
     git = {
-      source = config.lib.file.mkOutOfStoreSymlink
-        "${homeDirectory}/dotfiles/git/.config/git";
+      source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/git/.config/git";
     };
     starship = {
       source = config.lib.file.mkOutOfStoreSymlink
