@@ -5,6 +5,7 @@
     ./audio.nix
     ./gui.nix
     ./boot.nix
+    ./ssh.nix
     ./browser
     ./desktop
     ./shell
