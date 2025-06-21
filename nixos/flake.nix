@@ -36,29 +36,15 @@
     };
   };
 
-  outputs = { nixpkgs, auto-cpufreq, ... }@inputs:
-    let
-      commonModules = [
-        inputs.disko.nixosModules.disko
-        inputs.home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.chaps = import ./home.nix;
-          home-manager.extraSpecialArgs = { inherit inputs nixpkgs; };
-        }
-      ];
-      system = "x86_64-linux";
+  outputs = { nixpkgs, ... }@inputs:
+    let system = "x86_64-linux";
     in {
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-classic;
       nixosConfigurations = {
         darkwings = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
-          modules = commonModules ++ [
-            ./machines/darkwings/configuration.nix
-            auto-cpufreq.nixosModules.default
-          ];
+          modules = [ ./machines/darkwings ./configuration.nix ./users/chaps ];
         };
       };
     };

@@ -47,18 +47,18 @@
   programs.home-manager.enable = true;
 
   xdg.configFile = {
-    zsh = { source = ../zsh/.config/zsh; };
+    zsh = { source = ../../../zsh/.config/zsh; };
     tmux = {
       recursive = true;
-      source = ../tmux/.config/tmux;
+      source = ../../../tmux/.config/tmux;
     };
-    fuzzel = { source = ../fuzzel/.config/fuzzel; };
-    git = { source = ../git/.config/git; };
-    starship = { source = ../starship/.config/starship; };
-    alacritty = { source = ../alacritty/.config/alacritty; };
+    fuzzel = { source = ../../../fuzzel/.config/fuzzel; };
+    git = { source = ../../../git/.config/git; };
+    starship = { source = ../../../starship/.config/starship; };
+    alacritty = { source = ../../../alacritty/.config/alacritty; };
     nvim = {
       recursive = true;
-      source = ../nvim/.config/nvim;
+      source = ../../../nvim/.config/nvim;
     };
   };
 

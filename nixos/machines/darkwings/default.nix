@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ lib, inputs, ... }:
 
 {
-  imports = [
+  imports = with inputs; [
+    disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
-    ../../configuration.nix
     ../../roles/laptop.nix
   ];
 
