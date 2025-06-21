@@ -1,0 +1,38 @@
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 12
+
+[font.normal]
+family = "FiraMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "FiraMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "FiraMono Nerd Font"
+style = "Medium,Regular"
+
+[font.bold_italic]
+family = "FiraMono Nerd Font"
+style = "Bold"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[general]
+import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
+
+[terminal]
+
+shell = { program = "/usr/bin/env", args = [
+  "tmux",
+  "new-session",
+  "-A",
+  "-s",
+  "main",
+] }
