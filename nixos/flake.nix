@@ -42,6 +42,12 @@
           specialArgs = { inherit inputs; };
           modules = [ ./machines/darkwings ./users/chaps ];
         };
+
+        lightwings = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [ ./machines/lightwings ./users/chaps ];
+        };
       };
     };
 }
