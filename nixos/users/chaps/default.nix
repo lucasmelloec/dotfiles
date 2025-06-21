@@ -16,7 +16,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "kvm" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [ ];
+    packages = [ ];
   };
 
   nix.settings.trusted-users = [ "chaps" ];

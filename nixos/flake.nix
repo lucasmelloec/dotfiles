@@ -29,11 +29,6 @@
       url = "github:AdnanHodzic/auto-cpufreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    auto-aspm = {
-      url =
-        "github:notthebee/AutoASPM/e3bbeb5a96a2fb24188a7e6be649e057ff1968c5";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, ... }@inputs:
